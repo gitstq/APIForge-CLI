@@ -1,0 +1,17 @@
+# Core dependencies
+click>=8.0.0
+pyyaml>=6.0
+requests>=2.25.0
+
+# Optional: for enhanced features
+# faker>=15.0.0  # Advanced fake data generation
+# pydantic>=2.0  # Data validation
+# fastapi>=0.100.0  # Alternative to built-in HTTP server
+# uvicorn>=0.20.0  # ASGI server
+
+# Development dependencies
+pytest>=7.0.0
+pytest-cov>=4.0.0
+black>=23.0.0
+flake8>=6.0.0
+mypy>=1.0.0
