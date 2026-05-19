@@ -1,0 +1,200 @@
+{
+  "/api/users": [
+    {
+      "name": "default_users_response",
+      "conditions": {
+        "method": "GET"
+      },
+      "probability": 1.0,
+      "response": {
+        "status_code": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "users": [
+            {
+              "id": "${uuid()}",
+              "name": "${name()}",
+              "email": "${email()}",
+              "created_at": "${datetime()}"
+            }
+          ],
+          "total": 1
+        },
+        "delay_ms": 0
+      }
+    },
+    {
+      "name": "create_user",
+      "conditions": {
+        "method": "POST"
+      },
+      "probability": 1.0,
+      "response": {
+        "status_code": 201,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "id": "${uuid()}",
+          "name": "New User",
+          "email": "new@example.com",
+          "created_at": "${datetime()}",
+          "message": "User created successfully"
+        },
+        "delay_ms": 100
+      }
+    }
+  ],
+  "/api/users/{id}": [
+    {
+      "name": "get_user_by_id",
+      "conditions": {
+        "method": "GET"
+      },
+      "probability": 1.0,
+      "response": {
+        "status_code": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "id": "${incremental_id()}",
+          "name": "${name()}",
+          "email": "${email()}",
+          "age": "${random_int(min=18, max=80)}",
+          "is_active": true,
+          "created_at": "${datetime()}"
+        },
+        "delay_ms": 50
+      }
+    },
+    {
+      "name": "update_user",
+      "conditions": {
+        "method": "PUT"
+      },
+      "probability": 1.0,
+      "response": {
+        "status_code": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "id": "${incremental_id()}",
+          "message": "User updated successfully",
+          "updated_at": "${datetime()}"
+        },
+        "delay_ms": 80
+      }
+    },
+    {
+      "name": "delete_user",
+      "conditions": {
+        "method": "DELETE"
+      },
+      "probability": 1.0,
+      "response": {
+        "status_code": 204,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": null,
+        "delay_ms": 50
+      }
+    }
+  ],
+  "/api/products": [
+    {
+      "name": "list_products",
+      "conditions": {
+        "method": "GET"
+      },
+      "probability": 1.0,
+      "response": {
+        "status_code": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "products": [
+            {
+              "id": "prod_001",
+              "name": "Product A",
+              "description": "A high-quality product",
+              "price": 29.99,
+              "category": "electronics",
+              "in_stock": true
+            },
+            {
+              "id": "prod_002",
+              "name": "Product B",
+              "description": "Another great product",
+              "price": 49.99,
+              "category": "electronics",
+              "in_stock": true
+            }
+          ],
+          "total": 2
+        },
+        "delay_ms": 0
+      }
+    }
+  ],
+  "/api/orders": [
+    {
+      "name": "create_order",
+      "conditions": {
+        "method": "POST"
+      },
+      "probability": 1.0,
+      "response": {
+        "status_code": 201,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "order_id": "ord_${uuid()}",
+          "status": "pending",
+          "total": 79.98,
+          "items": [
+            {
+              "product_id": "prod_001",
+              "quantity": 1,
+              "price": 29.99
+            },
+            {
+              "product_id": "prod_002",
+              "quantity": 1,
+              "price": 49.99
+            }
+          ],
+          "created_at": "${datetime()}"
+        },
+        "delay_ms": 200
+      }
+    }
+  ],
+  "/api/health": [
+    {
+      "name": "health_check",
+      "conditions": {
+        "method": "GET"
+      },
+      "probability": 1.0,
+      "response": {
+        "status_code": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "status": "healthy",
+          "timestamp": "${datetime()}",
+          "version": "1.0.0"
+        },
+        "delay_ms": 10
+      }
+    }
+  ]
+}
